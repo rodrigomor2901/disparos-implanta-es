@@ -16,21 +16,28 @@
       --text: #0f172a;
       --muted: #64748b;
       --line: #e2e8f0;
+      --ok: #166534;
+      --ok-bg: #dcfce7;
       --warn: #c2410c;
+      --warn-bg: #ffedd5;
+      --shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
     }
 
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: Inter, Arial, Helvetica, sans-serif;
       background: var(--bg);
       color: var(--text);
     }
+
     .container {
-      max-width: 1400px;
+      max-width: 1480px;
       margin: 0 auto;
       padding: 24px;
     }
+
     .hero {
       background: linear-gradient(90deg, var(--navy) 0%, var(--blue) 60%, var(--orange) 100%);
       color: #fff;
@@ -38,18 +45,21 @@
       padding: 28px;
       box-shadow: 0 12px 30px rgba(15, 23, 42, 0.16);
     }
+
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.5fr 0.9fr;
+      grid-template-columns: 1.45fr 0.85fr;
       gap: 24px;
       align-items: center;
     }
+
     .brand-row {
       display: flex;
       gap: 10px;
       margin-bottom: 14px;
       flex-wrap: wrap;
     }
+
     .pill {
       background: rgba(255,255,255,.15);
       color: #fff;
@@ -59,71 +69,110 @@
       font-weight: 700;
       letter-spacing: .03em;
     }
+
     .hero h1 {
       margin: 0 0 10px;
       font-size: 34px;
       line-height: 1.15;
     }
+
     .hero p {
       margin: 0;
       color: rgba(255,255,255,.9);
       line-height: 1.5;
     }
+
     .steps {
       display: grid;
       gap: 12px;
     }
+
     .step {
       background: rgba(255,255,255,.12);
       padding: 14px;
       border-radius: 18px;
       backdrop-filter: blur(4px);
     }
-    .step-title { font-weight: 700; font-size: 14px; }
-    .step-sub { font-size: 12px; color: rgba(255,255,255,.86); margin-top: 4px; }
+
+    .step-title {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .step-sub {
+      font-size: 12px;
+      color: rgba(255,255,255,.86);
+      margin-top: 4px;
+    }
 
     .layout {
       display: grid;
-      grid-template-columns: 1.3fr 0.8fr;
+      grid-template-columns: 1.35fr 0.8fr;
       gap: 24px;
       margin-top: 24px;
       align-items: start;
     }
-    .stack { display: grid; gap: 24px; }
+
+    .stack {
+      display: grid;
+      gap: 24px;
+    }
+
     .kpis {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 16px;
     }
+
     .card {
       background: var(--card);
       border-radius: 24px;
-      box-shadow: 0 6px 18px rgba(15,23,42,.06);
+      box-shadow: var(--shadow);
       border: 1px solid rgba(226,232,240,.8);
       overflow: hidden;
     }
+
     .card-header {
       padding: 20px 22px 0;
     }
-    .card-header h2, .card-header h3 {
+
+    .card-header h2,
+    .card-header h3 {
       margin: 0;
       font-size: 20px;
     }
+
     .card-header p {
       margin: 6px 0 0;
       color: var(--muted);
       font-size: 14px;
       line-height: 1.45;
     }
-    .card-body { padding: 20px 22px 22px; }
+
+    .card-body {
+      padding: 20px 22px 22px;
+    }
+
     .kpi {
       padding: 18px;
       display: grid;
       gap: 8px;
     }
-    .kpi-label { color: var(--muted); font-size: 13px; }
-    .kpi-value { font-size: 28px; font-weight: 800; }
-    .kpi-hint { color: var(--muted); font-size: 12px; }
+
+    .kpi-label {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .kpi-value {
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .kpi-hint {
+      color: var(--muted);
+      font-size: 12px;
+    }
 
     .upload-zone {
       border: 2px dashed var(--line);
@@ -132,10 +181,22 @@
       padding: 32px;
       text-align: center;
     }
-    .upload-zone h3 { margin: 0 0 8px; }
-    .upload-zone p { margin: 0; color: var(--muted); }
 
-    .row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .upload-zone h3 {
+      margin: 0 0 8px;
+    }
+
+    .upload-zone p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
     .btn {
       border: 0;
       border-radius: 16px;
@@ -144,10 +205,26 @@
       cursor: pointer;
       transition: .15s ease;
     }
-    .btn:hover { transform: translateY(-1px); }
-    .btn-primary { background: var(--navy); color: #fff; }
-    .btn-secondary { background: #fff; border: 1px solid var(--line); color: var(--text); }
-    .btn-orange { background: var(--orange); color: #fff; }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--text);
+    }
+
+    .btn-orange {
+      background: var(--orange);
+      color: #fff;
+    }
 
     .status-msg {
       display: flex;
@@ -169,6 +246,7 @@
       border-radius: 18px;
       overflow: auto;
     }
+
     .tab {
       white-space: nowrap;
       background: transparent;
@@ -179,27 +257,46 @@
       font-weight: 700;
       color: var(--muted);
     }
+
     .tab.active {
       background: #fff;
       color: var(--navy);
       box-shadow: 0 2px 8px rgba(15,23,42,.06);
     }
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
 
     .form-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 16px;
     }
-    .field, .field-full { display: grid; gap: 7px; }
-    .field-full { grid-column: 1 / -1; }
+
+    .field,
+    .field-full {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field-full {
+      grid-column: 1 / -1;
+    }
+
     label {
       font-size: 13px;
       font-weight: 700;
       color: var(--navy);
     }
-    input, textarea, select {
+
+    input,
+    textarea,
+    select {
       width: 100%;
       border: 1px solid var(--line);
       background: #fff;
@@ -208,37 +305,65 @@
       font: inherit;
       color: var(--text);
     }
-    textarea { min-height: 140px; resize: vertical; }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
 
     .preview-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 24px;
     }
+
+    .three-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
       font-size: 13px;
     }
-    th, td {
+
+    th,
+    td {
       border-bottom: 1px solid var(--line);
       padding: 10px 8px;
       text-align: left;
       vertical-align: top;
     }
-    th { color: var(--muted); font-size: 12px; }
+
+    th {
+      color: var(--muted);
+      font-size: 12px;
+      background: #f8fafc;
+      position: sticky;
+      top: 0;
+    }
+
+    .table-wrap {
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+    }
 
     .action-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 16px;
     }
+
     .action-card {
       border: 1px solid var(--light-blue);
       border-radius: 22px;
       padding: 18px;
       background: #fff;
     }
+
     .action-top {
       display: flex;
       justify-content: space-between;
@@ -246,6 +371,7 @@
       gap: 10px;
       margin-bottom: 10px;
     }
+
     .tag {
       padding: 6px 10px;
       border-radius: 999px;
@@ -254,7 +380,13 @@
       background: var(--light-orange);
       color: var(--orange);
     }
-    .action-card p { color: var(--muted); font-size: 14px; margin: 0 0 12px; }
+
+    .action-card p {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0 0 12px;
+    }
+
     .task {
       border-radius: 14px;
       padding: 10px 12px;
@@ -262,7 +394,10 @@
       margin-top: 8px;
       background: #f8fafc;
     }
-    .task:nth-child(even) { background: #fff7ed; }
+
+    .task:nth-child(even) {
+      background: #fff7ed;
+    }
 
     .history-filter {
       display: flex;
@@ -270,6 +405,7 @@
       flex-wrap: wrap;
       margin-bottom: 12px;
     }
+
     .filter-chip {
       border: 1px solid var(--line);
       background: #fff;
@@ -280,24 +416,51 @@
       cursor: pointer;
       color: var(--muted);
     }
-    .filter-chip.active { background: var(--light-blue); color: var(--blue); }
 
-    .search-box { position: relative; margin-bottom: 14px; }
-    .search-box input { padding-left: 14px; }
-    .history-list { display: grid; gap: 12px; max-height: 620px; overflow: auto; }
+    .filter-chip.active {
+      background: var(--light-blue);
+      color: var(--blue);
+    }
+
+    .search-box {
+      position: relative;
+      margin-bottom: 14px;
+    }
+
+    .search-box input {
+      padding-left: 14px;
+    }
+
+    .history-list {
+      display: grid;
+      gap: 12px;
+      max-height: 620px;
+      overflow: auto;
+    }
+
     .history-item {
       border: 1px solid var(--line);
       border-radius: 20px;
       padding: 16px;
       background: #fff;
     }
+
     .history-top {
       display: flex;
       justify-content: space-between;
       gap: 12px;
     }
-    .history-name { font-weight: 800; }
-    .history-meta { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+    .history-name {
+      font-weight: 800;
+    }
+
+    .history-meta {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
     .status-pill {
       padding: 7px 10px;
       border-radius: 999px;
@@ -305,6 +468,7 @@
       font-weight: 800;
       display: inline-block;
     }
+
     .side-note {
       border-radius: 18px;
       background: #f8fafc;
@@ -313,15 +477,60 @@
       color: var(--muted);
     }
 
-    @media (max-width: 1080px) {
-      .layout, .hero-grid, .preview-grid, .action-grid { grid-template-columns: 1fr; }
-      .kpis { grid-template-columns: repeat(2, 1fr); }
-      .form-grid { grid-template-columns: 1fr; }
+    .summary-box {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 16px;
+      background: #fff;
     }
+
+    .summary-box h4 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    .summary-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .summary-item {
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 1200px) {
+      .layout,
+      .hero-grid,
+      .preview-grid,
+      .action-grid,
+      .three-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .kpis {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 640px) {
-      .container { padding: 14px; }
-      .hero h1 { font-size: 28px; }
-      .kpis { grid-template-columns: 1fr; }
+      .container {
+        padding: 14px;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .kpis {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -334,13 +543,22 @@
             <div class="pill">UNISETER</div>
             <div class="pill">Mini sistema de disparos</div>
           </div>
-          <h1>Upload da planilha, preenchimento guiado e geração automática dos 2 PDFs</h1>
-          <p>Versão HTML de teste para validar layout, experiência e fluxo antes de seguir para a versão online com GitHub + Firebase.</p>
+          <h1>Upload da planilha, preenchimento guiado e visão completa do que foi vendido</h1>
+          <p>Protótipo visual para validar se o sistema mostra com clareza o escopo comercial fechado, os dados operacionais e as ações que cada área precisa executar.</p>
         </div>
         <div class="steps">
-          <div class="step"><div class="step-title">1. Suba a planilha</div><div class="step-sub">Aceita .xlsb e .xlsx</div></div>
-          <div class="step"><div class="step-title">2. Revise os campos</div><div class="step-sub">Cabeçalho, faturamento e observações</div></div>
-          <div class="step"><div class="step-title">3. Gere os PDFs</div><div class="step-sub">Um para financeiro e outro para operação</div></div>
+          <div class="step">
+            <div class="step-title">1. Suba a planilha</div>
+            <div class="step-sub">Modelo .xlsb ou .xlsx</div>
+          </div>
+          <div class="step">
+            <div class="step-title">2. Revise os campos</div>
+            <div class="step-sub">Cabeçalho, observações, escopo e implantação</div>
+          </div>
+          <div class="step">
+            <div class="step-title">3. Gere os disparos</div>
+            <div class="step-sub">Comercial / Financeiro e Operacional</div>
+          </div>
         </div>
       </div>
     </section>
@@ -355,80 +573,90 @@
           </div>
           <div class="card kpi">
             <div class="kpi-label">Total de funcionários</div>
-            <div class="kpi-value" id="kpiFuncionarios">18</div>
-            <div class="kpi-hint">Base para contratação e implantação</div>
+            <div class="kpi-value" id="kpiFuncionarios">11</div>
+            <div class="kpi-hint">Base operacional inicial</div>
           </div>
           <div class="card kpi">
             <div class="kpi-label">Venda mensal</div>
-            <div class="kpi-value" id="kpiVenda">R$ 125.000,00</div>
-            <div class="kpi-hint">Postos + equipamentos mensais</div>
+            <div class="kpi-value" id="kpiVenda">R$ 77.368,92</div>
+            <div class="kpi-hint">Mão de obra principal</div>
           </div>
           <div class="card kpi">
             <div class="kpi-label">Status do contrato</div>
             <div class="kpi-value" id="kpiStatus">Em implantação</div>
-            <div class="kpi-hint">Controle da implantação</div>
+            <div class="kpi-hint">Controle interno</div>
           </div>
         </section>
 
         <section class="card">
           <div class="card-header">
             <h2>1. Subir planilha do contrato</h2>
-            <p>Nesta versão HTML, o upload é visual. Use para validar a experiência antes da integração real.</p>
+            <p>Nesta versão o upload é visual. A ideia aqui é validar a estrutura do sistema antes da integração real com planilha, Firebase e geração automática de PDFs.</p>
           </div>
           <div class="card-body">
             <div class="upload-zone">
               <h3>Clique para escolher a planilha</h3>
               <p>Modelos .xlsb e .xlsx</p>
             </div>
+
             <div class="row" style="margin-top:16px;">
               <button class="btn btn-primary">Salvar registro</button>
               <button class="btn btn-secondary">Atualizar registro</button>
               <button class="btn btn-secondary">Novo contrato</button>
             </div>
+
             <div class="status-msg" style="margin-top:16px;">
               <strong>✓</strong>
-              <span>Planilha lida com sucesso. Revise os campos e gere os PDFs.</span>
+              <span>Planilha lida com sucesso. Revise o cabeçalho, o detalhamento do vendido, as observações e depois gere os disparos.</span>
             </div>
           </div>
         </section>
 
         <section class="card">
           <div class="card-body">
-            <div class="tabs" id="tabs">
+            <div class="tabs">
               <button class="tab active" data-tab="cabecalho">2. Cabeçalho</button>
               <button class="tab" data-tab="observacoes">3. Observações</button>
-              <button class="tab" data-tab="previas">4. Prévia</button>
-              <button class="tab" data-tab="acoes">5. Ações</button>
-              <button class="tab" data-tab="controle">6. Controle</button>
+              <button class="tab" data-tab="vendido">4. Detalhamento do vendido</button>
+              <button class="tab" data-tab="previas">5. Prévia</button>
+              <button class="tab" data-tab="acoes">6. Ações</button>
+              <button class="tab" data-tab="controle">7. Controle</button>
+              <button class="tab" data-tab="campospdf">8. Campos dos PDFs</button>
             </div>
           </div>
 
           <div class="tab-panel active" id="tab-cabecalho">
             <div class="card-header">
               <h3>Preenchimento guiado</h3>
-              <p>Esses dados alimentam os dois documentos e ajudam cada área a entender o contrato sem ambiguidade.</p>
+              <p>Campos inspirados nos seus PDFs comercial e operacional, para que o sistema tenha minimamente o que hoje já existe nos disparos.</p>
             </div>
             <div class="card-body">
               <div class="form-grid">
                 <div class="field"><label>Cliente</label><input value="Condomínio Yard Cambuí"></div>
-                <div class="field"><label>Tipo de contrato</label><input value="Portaria e Controle de Acesso"></div>
-                <div class="field"><label>Ramo</label><input value="Condomínio"></div>
-                <div class="field"><label>Classificação</label><input value="Residencial vertical"></div>
+                <div class="field"><label>Tipo de contrato</label><input value="Portaria / Vigilância / Limpeza"></div>
                 <div class="field"><label>Análise de risco</label><input value="Médio"></div>
+                <div class="field"><label>Classificação</label><input value="Residencial vertical"></div>
+                <div class="field"><label>Ramo</label><input value="Condomínio"></div>
                 <div class="field"><label>Empresa de faturamento</label><input value="Yard Cambuí SPE"></div>
                 <div class="field"><label>CNPJ faturamento</label><input value="00.000.000/0001-00"></div>
+                <div class="field"><label>CNPJ matriz</label><input value="AINDA NÃO POSSUI"></div>
+                <div class="field"><label>CNPJ loja</label><input value="AINDA NÃO POSSUI"></div>
                 <div class="field"><label>Contato</label><input value="Fulano de Tal"></div>
                 <div class="field"><label>Telefone</label><input value="(19) 99999-9999"></div>
                 <div class="field"><label>E-mail NF</label><input value="financeiro@cliente.com"></div>
-                <div class="field"><label>Forma de pagamento</label><input value="Boleto 28 dias"></div>
-                <div class="field"><label>Data de implantação</label><input value="01/04/2026"></div>
-                <div class="field"><label>Início do faturamento</label><input value="01/04/2026"></div>
-                <div class="field"><label>Base de reajuste</label><input value="IPCA"></div>
-                <div class="field"><label>Vendedor responsável</label><input value="Lana Lima"></div>
-                <div class="field"><label>Origem comercial</label><input value="Renovação / Expansão"></div>
+                <div class="field"><label>Envio da NF</label><input value="Por e-mail"></div>
+                <div class="field"><label>Forma de pagamento</label><input value="A SER INFORMADO"></div>
+                <div class="field"><label>Responsável pela matriz</label><input value="Padrão Uniseter"></div>
+                <div class="field"><label>Supervisor implantação responsável</label><input value="A definir"></div>
+                <div class="field"><label>Supervisor operacional responsável</label><input value="A definir"></div>
+                <div class="field"><label>Responsável pelo fechamento</label><input value="Lana Lima"></div>
+                <div class="field"><label>Data do disparo</label><input value="13/06/2025"></div>
+                <div class="field"><label>Implantação comercial</label><input value="18/06/2025"></div>
+                <div class="field"><label>Implantação operacional</label><input value="16/06/2025"></div>
+                <div class="field"><label>Início do faturamento</label><input value="01/07/2025"></div>
                 <div class="field"><label>Status do contrato</label>
                   <select id="statusSelect">
-                    <option>Em implantação</option>
+                    <option selected>Em implantação</option>
                     <option>Aguardando documentação</option>
                     <option>Aguardando compras</option>
                     <option>Aguardando admissões</option>
@@ -445,16 +673,220 @@
           <div class="tab-panel" id="tab-observacoes">
             <div class="card-header">
               <h3>Observações por público</h3>
-              <p>Separe o que é orientação financeira, operacional e de apoio para reduzir ruído entre as áreas.</p>
+              <p>Separação das observações para reduzir ruído entre Comercial, Financeiro, Operação, RH e demais áreas.</p>
             </div>
             <div class="card-body">
               <div class="form-grid">
-                <div class="field"><label>Observações - Financeiro / Gestão</label><textarea>Faturamento iniciar em 01/04/2026. Primeiro ciclo sem proporcionalidade. Validar envio da NF para financeiro@cliente.com.</textarea></div>
-                <div class="field"><label>Observações - Operação / Demais áreas</label><textarea>Contrato exige implantação simultânea de postos com apoio do supervisor operacional. Validar cobertura inicial e uniformes completos.</textarea></div>
-                <div class="field"><label>Observações - RH / DP</label><textarea>Abrir admissões prioritárias para porteiros diurnos e noturnos. Agendar exame admissional e integração antes do início.</textarea></div>
-                <div class="field"><label>Observações - Suprimentos / Compras</label><textarea>Providenciar rádios, bodycams e kit de uniforme inicial conforme padrão do cliente.</textarea></div>
-                <div class="field"><label>Observações - Tecnologia / Sistemas</label><textarea>Criar contrato e vagas no sistema. Parametrizar estrutura operacional e cadastros para implantação.</textarea></div>
-                <div class="field"><label>Observações - Faturamento</label><textarea>Emitir NF por CNPJ de faturamento indicado. Validar vencimento e envio por e-mail.</textarea></div>
+                <div class="field">
+                  <label>Observações - Financeiro / Gestão</label>
+                  <textarea>Emitir faturamento conforme CNPJ indicado. Validar envio da NF para financeiro@cliente.com e confirmar condição comercial aprovada.</textarea>
+                </div>
+                <div class="field">
+                  <label>Observações - Operação / Demais áreas</label>
+                  <textarea>Implantação com atenção ao fluxo de acesso principal, alinhamento de postos, cobertura inicial e entrega de equipamentos operacionais.</textarea>
+                </div>
+                <div class="field">
+                  <label>Observações - RH / DP</label>
+                  <textarea>Abrir admissões prioritárias para controladores de acesso, vigilantes e auxiliares. Validar cronograma para início operacional.</textarea>
+                </div>
+                <div class="field">
+                  <label>Observações - Suprimentos / Compras</label>
+                  <textarea>Providenciar rádios HT, capa de chuva, guarda-chuva, livro ata, lanterna tática, uniforme e demais insumos previstos no contrato.</textarea>
+                </div>
+                <div class="field">
+                  <label>Observações - Tecnologia / Sistemas</label>
+                  <textarea>Criar contrato no sistema, abrir vagas, cadastrar postos, validar recursos de ronda, alerta e telefonia móvel.</textarea>
+                </div>
+                <div class="field">
+                  <label>Observações - Faturamento</label>
+                  <textarea>Confirmar empresa de faturamento, forma de envio da NF e cadastro da condição financeira antes do primeiro ciclo.</textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="tab-vendido">
+            <div class="card-header">
+              <h3>Detalhamento do que foi vendido</h3>
+              <p>Visão comercial mais importante do sistema. Aqui as áreas conseguem entender com clareza o escopo fechado e o impacto do contrato.</p>
+            </div>
+            <div class="card-body">
+              <div class="card" style="box-shadow:none; border:1px solid var(--line); margin-bottom:16px;">
+                <div class="card-header">
+                  <h3>Escopo - Mão de obra</h3>
+                  <p>Separado por área, com os principais campos do PDF comercial e operacional.</p>
+                </div>
+                <div class="card-body">
+                  <div class="table-wrap">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Área</th>
+                          <th>Qtd postos</th>
+                          <th>Nº func.</th>
+                          <th>Descrição posto</th>
+                          <th>Armado</th>
+                          <th>Horário</th>
+                          <th>Intervalo</th>
+                          <th>Dias da semana</th>
+                          <th>Escala</th>
+                          <th>Feriado</th>
+                          <th>Uniforme</th>
+                          <th>Total mensal</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Vigilância</td>
+                          <td>1</td>
+                          <td>2</td>
+                          <td>Vigilante</td>
+                          <td>Não</td>
+                          <td>19h00 às 07h00</td>
+                          <td>1h</td>
+                          <td>Seg a Dom</td>
+                          <td>12x36</td>
+                          <td>Sim</td>
+                          <td>KIT VIGILANTE</td>
+                          <td>R$ 16.137,40</td>
+                        </tr>
+                        <tr>
+                          <td>Portaria / Recepção</td>
+                          <td>1</td>
+                          <td>2</td>
+                          <td>Control de Acesso</td>
+                          <td>Não</td>
+                          <td>07h00 às 19h00</td>
+                          <td>Indenizado</td>
+                          <td>Seg a Dom</td>
+                          <td>12x36</td>
+                          <td>Sim</td>
+                          <td>KIT CONTROL DE ACESSO FARDA</td>
+                          <td>R$ 12.129,51</td>
+                        </tr>
+                        <tr>
+                          <td>Portaria / Recepção</td>
+                          <td>1</td>
+                          <td>2</td>
+                          <td>Control de Acesso</td>
+                          <td>Não</td>
+                          <td>19h00 às 07h00</td>
+                          <td>Indenizado</td>
+                          <td>Seg a Dom</td>
+                          <td>12x36</td>
+                          <td>Sim</td>
+                          <td>KIT CONTROL DE ACESSO FARDA</td>
+                          <td>R$ 13.287,11</td>
+                        </tr>
+                        <tr>
+                          <td>Portaria / Recepção</td>
+                          <td>1</td>
+                          <td>2</td>
+                          <td>Ronda</td>
+                          <td>Não</td>
+                          <td>07h00 às 19h00</td>
+                          <td>1h</td>
+                          <td>Seg a Dom</td>
+                          <td>12x36</td>
+                          <td>Sim</td>
+                          <td>KIT RONDA</td>
+                          <td>R$ 12.272,75</td>
+                        </tr>
+                        <tr>
+                          <td>Limpeza</td>
+                          <td>1</td>
+                          <td>1</td>
+                          <td>Auxiliar de Serviços Gerais</td>
+                          <td>-</td>
+                          <td>08h00 às 17h00 / Sáb 08h00 às 12h00</td>
+                          <td>1h</td>
+                          <td>Seg a Sáb</td>
+                          <td>6x1</td>
+                          <td>Sim</td>
+                          <td>KIT AUX DE LIMPEZA FEM</td>
+                          <td>R$ 6.021,52</td>
+                        </tr>
+                        <tr>
+                          <td>Limpeza</td>
+                          <td>1</td>
+                          <td>1</td>
+                          <td>Auxiliar de Serviços Gerais - 20% insalubridade</td>
+                          <td>-</td>
+                          <td>08h00 às 17h00 / Sáb 08h00 às 12h00</td>
+                          <td>1h</td>
+                          <td>Seg a Sáb</td>
+                          <td>6x1</td>
+                          <td>Sim</td>
+                          <td>KIT AUX DE LIMPEZA FEM</td>
+                          <td>R$ 6.469,63</td>
+                        </tr>
+                        <tr>
+                          <td>Limpeza</td>
+                          <td>1</td>
+                          <td>1</td>
+                          <td>Gestor Predial</td>
+                          <td>-</td>
+                          <td>08h00 às 17h00 / Sáb 08h00 às 12h00</td>
+                          <td>1h</td>
+                          <td>Seg a Sáb</td>
+                          <td>6x1</td>
+                          <td>Não</td>
+                          <td>KIT ZELADOR</td>
+                          <td>R$ 11.051,00</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="preview-grid">
+                <div class="card" style="box-shadow:none; border:1px solid var(--line);">
+                  <div class="card-header">
+                    <h3>Equipamentos vendidos</h3>
+                    <p>Itens previstos no escopo comercial para apoiar implantação e operação.</p>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-wrap">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Área</th>
+                            <th>Descrição</th>
+                            <th>Qtdade</th>
+                            <th>Tipo aquisição</th>
+                            <th>Venda total</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr><td>Vigilância</td><td>Guarda chuva</td><td>4</td><td>Compra</td><td>R$ 8,33</td></tr>
+                          <tr><td>Vigilância</td><td>Capa de chuva</td><td>1</td><td>Compra</td><td>R$ 4,72</td></tr>
+                          <tr><td>Vigilância</td><td>Lanterna tática</td><td>1</td><td>Compra</td><td>R$ 4,44</td></tr>
+                          <tr><td>Vigilância</td><td>Livro ata</td><td>1</td><td>Compra</td><td>R$ 23,33</td></tr>
+                          <tr><td>Portaria</td><td>Rádio HT c/ bateria reserva</td><td>1</td><td>Locação</td><td>R$ 110,73</td></tr>
+                          <tr><td>Portaria</td><td>Telefonia móvel</td><td>1</td><td>Locação</td><td>R$ 87,66</td></tr>
+                          <tr><td>Portaria</td><td>Find Me - Alerta + Ronda</td><td>1</td><td>Locação</td><td>R$ 221,46</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card" style="box-shadow:none; border:1px solid var(--line);">
+                  <div class="card-header">
+                    <h3>Resumo de venda</h3>
+                    <p>Totais e destaques que ajudam a gestão a enxergar o fechamento comercial rapidamente.</p>
+                  </div>
+                  <div class="card-body">
+                    <div class="summary-list">
+                      <div class="summary-item"><strong>Vigilância:</strong> R$ 16.137,40</div>
+                      <div class="summary-item"><strong>Portaria / Recepção:</strong> R$ 37.689,37</div>
+                      <div class="summary-item"><strong>Asseio e Conservação:</strong> R$ 23.542,15</div>
+                      <div class="summary-item"><strong>Total mensal mão de obra:</strong> R$ 77.368,92</div>
+                      <div class="summary-item"><strong>Observação comercial:</strong> Houve alteração no salário e inclusão de 20% de gratificação para o gestor predial, gerando alteração no valor final do contrato.</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -462,37 +894,66 @@
           <div class="tab-panel" id="tab-previas">
             <div class="card-header">
               <h3>Prévia do conteúdo</h3>
-              <p>Visão mais didática do que cada público vai receber nos PDFs.</p>
+              <p>Como a informação pode ser lida por cada público interno antes da geração dos PDFs.</p>
             </div>
             <div class="card-body">
               <div class="preview-grid">
                 <div class="card" style="box-shadow:none;">
-                  <div class="card-header"><h3>Prévia financeira</h3><p>Foco em venda, impactos mensais e informações de faturamento.</p></div>
+                  <div class="card-header">
+                    <h3>Prévia financeira / comercial</h3>
+                    <p>Foco em venda, escopo contratado, faturamento e resumo financeiro.</p>
+                  </div>
                   <div class="card-body">
-                    <table>
-                      <thead><tr><th>Área / item</th><th>Qtd</th><th>Func.</th><th>Valor</th></tr></thead>
-                      <tbody>
-                        <tr><td>Portaria 12h diurna</td><td>3</td><td>6</td><td>R$ 42.000,00</td></tr>
-                        <tr><td>Portaria 12h noturna</td><td>3</td><td>6</td><td>R$ 44.000,00</td></tr>
-                        <tr><td>Controle de acesso apoio</td><td>1</td><td>2</td><td>R$ 12.000,00</td></tr>
-                        <tr><td>Monitoramento - Equipamento</td><td>8</td><td>-</td><td>R$ 8.000,00</td></tr>
-                        <tr><td>Portaria - Equipamento</td><td>5</td><td>-</td><td>R$ 19.000,00</td></tr>
-                      </tbody>
-                    </table>
+                    <div class="table-wrap">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Área / item</th>
+                            <th>Qtd</th>
+                            <th>Func.</th>
+                            <th>Valor</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr><td>Vigilância</td><td>1</td><td>2</td><td>R$ 16.137,40</td></tr>
+                          <tr><td>Portaria / Recepção</td><td>3</td><td>6</td><td>R$ 37.689,37</td></tr>
+                          <tr><td>Limpeza</td><td>3</td><td>3</td><td>R$ 23.542,15</td></tr>
+                          <tr><td>Equipamentos</td><td>7</td><td>-</td><td>R$ 460,67</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
+
                 <div class="card" style="box-shadow:none;">
-                  <div class="card-header"><h3>Prévia operacional</h3><p>Foco em estrutura do contrato, quantidades e insumos para cada área agir.</p></div>
+                  <div class="card-header">
+                    <h3>Prévia operacional</h3>
+                    <p>Foco em postos, horários, escalas, uniforme e itens que a operação precisa enxergar.</p>
+                  </div>
                   <div class="card-body">
-                    <table>
-                      <thead><tr><th>Descrição</th><th>Postos</th><th>Func.</th><th>Horário</th></tr></thead>
-                      <tbody>
-                        <tr><td>Portaria 12h diurna</td><td>3</td><td>6</td><td>06h às 18h</td></tr>
-                        <tr><td>Portaria 12h noturna</td><td>3</td><td>6</td><td>18h às 06h</td></tr>
-                        <tr><td>Controle de acesso apoio</td><td>1</td><td>2</td><td>Comercial</td></tr>
-                      </tbody>
-                    </table>
-                    <div class="side-note" style="margin-top:14px;">Equipamentos por área: rádios, bodycams, controles, mobiliário operacional e itens de apoio ao posto.</div>
+                    <div class="table-wrap">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Descrição</th>
+                            <th>Postos</th>
+                            <th>Func.</th>
+                            <th>Horário</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr><td>Vigilante</td><td>1</td><td>2</td><td>19h00 às 07h00</td></tr>
+                          <tr><td>Control de Acesso - Diurno</td><td>1</td><td>2</td><td>07h00 às 19h00</td></tr>
+                          <tr><td>Control de Acesso - Noturno</td><td>1</td><td>2</td><td>19h00 às 07h00</td></tr>
+                          <tr><td>Ronda</td><td>1</td><td>2</td><td>07h00 às 19h00</td></tr>
+                          <tr><td>Auxiliar de Serviços Gerais</td><td>2</td><td>2</td><td>08h00 às 17h00 / Sáb 08h00 às 12h00</td></tr>
+                          <tr><td>Gestor Predial</td><td>1</td><td>1</td><td>08h00 às 17h00 / Sáb 08h00 às 12h00</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="side-note" style="margin-top:14px;">
+                      Itens de apoio operacional previstos: rádio HT, telefonia móvel, Find Me - Alerta + Ronda, capa de chuva, guarda-chuva, livro ata e lanterna tática.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -502,41 +963,78 @@
           <div class="tab-panel" id="tab-acoes">
             <div class="card-header">
               <h3>Plano de ação por área</h3>
-              <p>Transforma os dados do contrato em tarefas claras para cada departamento agir com rapidez.</p>
+              <p>Transforma o contrato fechado em ações objetivas para cada departamento.</p>
             </div>
             <div class="card-body">
               <div class="action-grid">
                 <div class="action-card">
-                  <div class="action-top"><strong>Financeiro</strong><span class="tag">4 ações</span></div>
-                  <p>Validar dados de faturamento, implantação do contrato e fluxo de cobrança.</p>
+                  <div class="action-top">
+                    <strong>Financeiro</strong>
+                    <span class="tag">4 ações</span>
+                  </div>
+                  <p>Validar faturamento, cadastro financeiro e envio de NF.</p>
                   <div class="task">Cadastrar empresa de faturamento: Yard Cambuí SPE</div>
-                  <div class="task">Programar início do faturamento em 01/04/2026</div>
-                  <div class="task">Configurar forma de pagamento: Boleto 28 dias</div>
-                  <div class="task">Validar envio de NF: financeiro@cliente.com</div>
+                  <div class="task">Programar início do faturamento em 01/07/2025</div>
+                  <div class="task">Definir condição de pagamento</div>
+                  <div class="task">Validar envio de NF por e-mail</div>
                 </div>
+
                 <div class="action-card">
-                  <div class="action-top"><strong>RH / DP</strong><span class="tag">4 ações</span></div>
-                  <p>Abrir vagas, planejar admissões e organizar documentação da implantação.</p>
-                  <div class="task">Abrir vagas para 18 colaboradores</div>
-                  <div class="task">Conferir escalas e cobertura dos 7 postos previstos</div>
-                  <div class="task">Planejar admissões conforme implantação em 01/04/2026</div>
-                  <div class="task">Revisar observações específicas de RH no contrato</div>
+                  <div class="action-top">
+                    <strong>RH / DP</strong>
+                    <span class="tag">4 ações</span>
+                  </div>
+                  <p>Abrir vagas, organizar admissões e preparar documentos.</p>
+                  <div class="task">Abrir vagas para 11 colaboradores</div>
+                  <div class="task">Conferir escalas dos 7 postos previstos</div>
+                  <div class="task">Planejar admissões conforme implantação operacional</div>
+                  <div class="task">Validar exames e documentação de entrada</div>
                 </div>
+
                 <div class="action-card">
-                  <div class="action-top"><strong>Operação</strong><span class="tag">4 ações</span></div>
-                  <p>Estruturar postos, liderança e plano de entrada da operação.</p>
-                  <div class="task">Implantar 7 postos operacionais</div>
+                  <div class="action-top">
+                    <strong>Operação</strong>
+                    <span class="tag">4 ações</span>
+                  </div>
+                  <p>Estruturar postos, liderança e rotina da implantação.</p>
+                  <div class="task">Implantar postos de vigilância, portaria, ronda e limpeza</div>
                   <div class="task">Definir supervisor operacional responsável</div>
-                  <div class="task">Definir responsável pela implantação</div>
-                  <div class="task">Revisar particularidades operacionais do contrato</div>
+                  <div class="task">Definir supervisor de implantação</div>
+                  <div class="task">Alinhar cobertura inicial e particularidades do cliente</div>
                 </div>
+
                 <div class="action-card">
-                  <div class="action-top"><strong>Suprimentos</strong><span class="tag">4 ações</span></div>
-                  <p>Comprar e disponibilizar equipamentos, uniformes e insumos previstos.</p>
-                  <div class="task">Providenciar 13 itens de equipamento mapeados na planilha</div>
-                  <div class="task">Portaria: rádio HT - qtd 4</div>
-                  <div class="task">Monitoramento: bodycam - qtd 6</div>
-                  <div class="task">Revisar observações específicas de compras e materiais</div>
+                  <div class="action-top">
+                    <strong>Suprimentos</strong>
+                    <span class="tag">4 ações</span>
+                  </div>
+                  <p>Comprar e disponibilizar equipamentos, uniforme e materiais.</p>
+                  <div class="task">Providenciar rádios HT, telefonia e recursos de ronda</div>
+                  <div class="task">Separar kits de uniforme por função</div>
+                  <div class="task">Comprar capa de chuva, guarda-chuva, livro ata e lanterna</div>
+                  <div class="task">Conferir entrega antes da implantação operacional</div>
+                </div>
+
+                <div class="action-card">
+                  <div class="action-top">
+                    <strong>Tecnologia / Sistemas</strong>
+                    <span class="tag">3 ações</span>
+                  </div>
+                  <p>Criar estrutura sistêmica do contrato e recursos operacionais.</p>
+                  <div class="task">Cadastrar contrato e postos no sistema</div>
+                  <div class="task">Abrir vagas e parâmetros operacionais</div>
+                  <div class="task">Validar recursos de monitoramento e alerta</div>
+                </div>
+
+                <div class="action-card">
+                  <div class="action-top">
+                    <strong>Gestão</strong>
+                    <span class="tag">3 ações</span>
+                  </div>
+                  <p>Acompanhar alinhamento entre comercial, implantação e operação.</p>
+                  <div class="task">Validar se escopo vendido está refletido no disparo</div>
+                  <div class="task">Acompanhar datas comercial e operacional</div>
+                  <div class="task">Garantir que todas as áreas tenham clareza do contrato</div>
                 </div>
               </div>
             </div>
@@ -545,11 +1043,12 @@
           <div class="tab-panel" id="tab-controle">
             <div class="card-header">
               <h3>Controle do contrato</h3>
-              <p>Campos para gestão do ciclo de implantação e visão executiva do andamento.</p>
+              <p>Campos de gestão do ciclo de implantação e leitura executiva do status atual.</p>
             </div>
             <div class="card-body">
               <div class="form-grid">
-                <div class="field"><label>Status do contrato</label>
+                <div class="field">
+                  <label>Status do contrato</label>
                   <select>
                     <option selected>Em implantação</option>
                     <option>Aguardando documentação</option>
@@ -564,7 +1063,75 @@
                 <div class="field"><label>Percentual de retenção</label><input value="0%"></div>
                 <div class="field-full">
                   <label>Resumo executivo interno</label>
-                  <div class="side-note">Cliente <strong>Condomínio Yard Cambuí</strong>, status <strong>Em implantação</strong>, venda mensal estimada em <strong>R$ 125.000,00</strong>, com <strong>18</strong> colaboradores previstos e <strong>13</strong> itens de equipamento mapeados.</div>
+                  <div class="side-note">
+                    Cliente <strong>Condomínio Yard Cambuí</strong>, status <strong>Em implantação</strong>, venda mensal estimada em <strong>R$ 77.368,92</strong>, com itens de vigilância, portaria, ronda, limpeza, gestor predial, equipamentos e observações operacionais já mapeados.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="tab-campospdf">
+            <div class="card-header">
+              <h3>Campos mínimos dos PDFs</h3>
+              <p>Checklist visual do que o sistema precisa ter para espelhar minimamente os disparos comercial e operacional que você usa hoje.</p>
+            </div>
+            <div class="card-body">
+              <div class="preview-grid">
+                <div class="card" style="box-shadow:none; border:1px solid var(--line);">
+                  <div class="card-header">
+                    <h3>PDF Comercial / Financeiro</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-wrap">
+                      <table>
+                        <tbody>
+                          <tr><td>Cliente</td><td>Tipo de contrato</td></tr>
+                          <tr><td>Análise de risco</td><td>Classificação</td></tr>
+                          <tr><td>Ramo</td><td>CNPJ Matriz</td></tr>
+                          <tr><td>CNPJ Loja</td><td>Empresa de faturamento</td></tr>
+                          <tr><td>CNPJ de faturamento</td><td>Endereço matriz</td></tr>
+                          <tr><td>Endereço de prestação do serviço</td><td>Contato</td></tr>
+                          <tr><td>Telefone</td><td>E-mail NF</td></tr>
+                          <tr><td>Envio da NF</td><td>Forma de pagamento</td></tr>
+                          <tr><td>Responsável pela matriz</td><td>Supervisor implantação responsável</td></tr>
+                          <tr><td>Supervisor operacional responsável</td><td>Responsável pelo fechamento</td></tr>
+                          <tr><td>Data do disparo</td><td>Implantação comercial</td></tr>
+                          <tr><td>Implantação operacional</td><td>Observações gerais</td></tr>
+                          <tr><td>Escopo - mão de obra</td><td>Equipamentos</td></tr>
+                          <tr><td>Salários e benefícios</td><td>Totais de venda</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card" style="box-shadow:none; border:1px solid var(--line);">
+                  <div class="card-header">
+                    <h3>PDF Operacional</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-wrap">
+                      <table>
+                        <tbody>
+                          <tr><td>Cliente</td><td>Tipo de contrato</td></tr>
+                          <tr><td>Análise de risco</td><td>Classificação</td></tr>
+                          <tr><td>Ramo</td><td>CNPJ Matriz</td></tr>
+                          <tr><td>CNPJ Loja</td><td>Empresa de faturamento</td></tr>
+                          <tr><td>Endereço matriz</td><td>Endereço de prestação do serviço</td></tr>
+                          <tr><td>Contato</td><td>Supervisor implantação responsável</td></tr>
+                          <tr><td>Supervisor operacional responsável</td><td>Responsável pela matriz</td></tr>
+                          <tr><td>Escopo - mão de obra</td><td>Campos de armado</td></tr>
+                          <tr><td>Horário</td><td>Intervalo</td></tr>
+                          <tr><td>Dias da semana</td><td>Feriado</td></tr>
+                          <tr><td>Uniforme</td><td>Insalubridade / Periculosidade</td></tr>
+                          <tr><td>Equipamentos</td><td>Insumos</td></tr>
+                          <tr><td>Salários e benefícios</td><td>Observações gerais</td></tr>
+                          <tr><td>Datas de implantação</td><td>Detalhamento operacional</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -573,6 +1140,23 @@
       </div>
 
       <div class="stack">
+        <section class="card">
+          <div class="card-header">
+            <h2>Resumo comercial do contrato</h2>
+            <p>Leitura rápida para qualquer área entender o que foi efetivamente vendido.</p>
+          </div>
+          <div class="card-body">
+            <div class="summary-list">
+              <div class="summary-item"><strong>Serviços vendidos:</strong> Vigilância, portaria, ronda, limpeza e gestão predial</div>
+              <div class="summary-item"><strong>Estrutura operacional:</strong> 7 postos / 11 colaboradores previstos</div>
+              <div class="summary-item"><strong>Equipamentos inclusos:</strong> Rádio HT, telefonia móvel, Find Me, capa de chuva, guarda-chuva, livro ata, lanterna</div>
+              <div class="summary-item"><strong>Venda mensal:</strong> R$ 77.368,92</div>
+              <div class="summary-item"><strong>Implantação comercial:</strong> 18/06/2025</div>
+              <div class="summary-item"><strong>Implantação operacional:</strong> 16/06/2025</div>
+            </div>
+          </div>
+        </section>
+
         <section class="card">
           <div class="card-header">
             <h2>Painel rápido</h2>
@@ -584,9 +1168,16 @@
               <button class="btn btn-secondary">PDF Operação / Áreas</button>
               <button class="btn btn-secondary">Backup do contrato</button>
             </div>
+
             <div class="row" style="margin-top:14px;">
-              <div class="side-note" style="flex:1; background:var(--light-blue); color:var(--blue);"><strong>Próximo passo</strong><br>Salvar ou atualizar o registro antes de encerrar.</div>
-              <div class="side-note" style="flex:1; background:var(--light-orange); color:var(--warn);"><strong>Objetivo</strong><br>Reduzir dúvidas internas e acelerar a implantação.</div>
+              <div class="side-note" style="flex:1; background:var(--light-blue); color:var(--blue);">
+                <strong>Próximo passo</strong><br>
+                Revisar detalhamento do vendido antes de disparar para as áreas.
+              </div>
+              <div class="side-note" style="flex:1; background:var(--light-orange); color:var(--warn);">
+                <strong>Objetivo</strong><br>
+                Fazer a equipe entender com clareza o escopo contratado.
+              </div>
             </div>
           </div>
         </section>
@@ -594,19 +1185,21 @@
         <section class="card">
           <div class="card-header">
             <h2>Histórico pesquisável</h2>
-            <p>Consulte contratos já processados e reabra os dados para gerar novamente os arquivos.</p>
+            <p>Consulte contratos já processados e filtre por status para localizar rapidamente um disparo anterior.</p>
           </div>
           <div class="card-body">
-            <div class="history-filter" id="historyFilters">
+            <div class="history-filter">
               <button class="filter-chip active" data-status="todos">Todos</button>
               <button class="filter-chip" data-status="Em implantação">Em implantação</button>
               <button class="filter-chip" data-status="Aguardando compras">Aguardando compras</button>
               <button class="filter-chip" data-status="Pronto para faturar">Pronto para faturar</button>
               <button class="filter-chip" data-status="Implantado">Implantado</button>
             </div>
+
             <div class="search-box">
               <input type="text" id="historySearch" placeholder="Pesquisar por cliente, contato, empresa ou nome da planilha">
             </div>
+
             <div class="history-list" id="historyList"></div>
           </div>
         </section>
@@ -616,7 +1209,7 @@
 
   <script>
     const historyData = [
-      { cliente: 'Condomínio Yard Cambuí', arquivo: 'XXXX-26 YARD CAMBUI 2026 - ATUAL.xlsb', data: '25/03/2026 10:10', tipo: 'Portaria', status: 'Em implantação' },
+      { cliente: 'Condomínio Yard Cambuí', arquivo: 'XXXX-26 YARD CAMBUI 2026 - ATUAL.xlsb', data: '25/03/2026 10:10', tipo: 'Portaria / Vigilância / Limpeza', status: 'Em implantação' },
       { cliente: 'Residencial Swiss Park', arquivo: 'SWISS-PARK-PORTARIA.xlsb', data: '22/03/2026 14:30', tipo: 'Controle de acesso', status: 'Aguardando compras' },
       { cliente: 'Edifício Plaza Corporate', arquivo: 'PLAZA-CORPORATE.xlsx', data: '19/03/2026 09:18', tipo: 'Facilities', status: 'Pronto para faturar' },
       { cliente: 'Condomínio Jardins Prime', arquivo: 'JARDINS-PRIME.xlsb', data: '10/03/2026 17:02', tipo: 'Portaria', status: 'Implantado' }
@@ -634,6 +1227,7 @@
     function renderHistory() {
       const q = document.getElementById('historySearch').value.toLowerCase().trim();
       const list = document.getElementById('historyList');
+
       const filtered = historyData.filter(item => {
         const matchesStatus = activeStatus === 'todos' || item.status === activeStatus;
         const matchesSearch = !q || [item.cliente, item.arquivo, item.tipo, item.status].join(' ').toLowerCase().includes(q);

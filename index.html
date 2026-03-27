@@ -216,7 +216,6 @@ select.emp-sel{border-radius:8px;padding:5px 8px;font-size:11px;font-weight:700;
 }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-style/0.8.13/xlsx-style.min.js" onerror="console.warn('xlsx-style nao carregado')"></script>
 </head>
 <body>
 
@@ -1013,6 +1012,12 @@ function processFile(file){
         const rowsOp = nomeOp ? XLSX.utils.sheet_to_json(wb.Sheets[nomeOp],{header:1,defval:''}) : null;
         
         dadosExtraidos = extrairCamposDaPlanilha(rows, rowsMat, rowsRes, rowsOp);
+        // Deriva tipo do disparo a partir do nome da aba principal
+        const wsNomeUp = wsNome.toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+        dadosExtraidos._tipoDisparo = wsNomeUp.includes('AJUSTE') ? 'AJUSTE'
+          : wsNomeUp.includes('ENCERRAMENTO') ? 'ENCERRAMENTO'
+          : wsNomeUp.includes('RENOVACAO') ? 'RENOVAÇÃO'
+          : 'IMPLANTAÇÃO';
         
         console.log('=== PLANILHA CARREGADA ===');
         console.log('Aba principal:', wsNome);
@@ -1202,27 +1207,29 @@ function extrairCamposDaPlanilha(rows, rowsMat, rowsResumo, rowsOp){
     const result=[];
     let ativo=false, aVeic='', cab=false;
     // Modo 2: header-row onde CUSTO VEICULO aparece como coluna (estrutura do OPERACIONAL)
-    let modo2=false, modo2area='Vigilância', colCusto=-1, colDesc=-1, colFr=-1, colCb=-1, colKm=-1, colQtd=-1;
+    let modo2=false, modo2area='Vigilância', modo2AreaDef=false, colCusto=-1, colDesc=-1, colFr=-1, colCb=-1, colKm=-1, colQtd=-1;
     for(let ri=0; ri<srcRows.length; ri++){
       const row=srcRows[ri];
       const rowLow=row.map(function(x){return String(x||'').toLowerCase();});
       const rowStr=rowLow.join(' ');
       // Detecta área de veículos no modo2
-      if(rowStr.includes('veiculos - vigilancia')||rowStr.includes('veículos - vigilância')||rowStr.includes('veiculos seguranca')||rowStr.includes('veiculos vigilancia')){
-        modo2area='Vigilância'; modo2=false; cab=false; ativo=false; continue;
+      const rowStrN=rowStr.normalize('NFD').replace(/[̀-ͯ]/g,'');
+      if(rowStrN.includes('veiculos - vigilancia')||rowStrN.includes('veiculos seguranca')||rowStrN.includes('veiculos vigilancia')){
+        modo2area='Vigilância'; modo2AreaDef=true; modo2=false; cab=false; ativo=false; continue;
       }
-      if(rowStr.includes('veiculos - portaria')||rowStr.includes('veículos - portaria')||rowStr.includes('veiculos portaria')){
-        modo2area='Portaria'; modo2=false; cab=false; ativo=false; continue;
+      if(rowStrN.includes('veiculos - portaria')||rowStrN.includes('veiculos portaria')){
+        modo2area='Portaria'; modo2AreaDef=true; modo2=false; cab=false; ativo=false; continue;
       }
-      if(rowStr.includes('total veiculos')||rowStr.includes('total veículos')){
+      if(rowStrN.includes('total veiculos')){
         modo2=false; cab=false; ativo=false; continue;
       }
       // Detecta header com CUSTO VEICULO como coluna (modo2)
-      if(!ativo && (rowStr.includes('custo veiculo')||rowStr.includes('custo veículo'))){
+      const rowStrN2=rowStr.normalize('NFD').replace(/[̀-ͯ]/g,'');
+      if(!ativo && rowStrN2.includes('custo veiculo')){
         const colCount2=row.filter(function(x){return String(x||'').trim().length>1;}).length;
         const hasMult=(colCount2>=2)||(rowStr.includes('descricao')||rowStr.includes('veiculo')||rowStr.includes('franquia')||rowStr.includes('aquisicao'));
-        if(hasMult){
-          // É um header de colunas
+        if(hasMult && modo2AreaDef){
+          // É um header de colunas (só ativa se área foi explicitamente definida)
           modo2=true; cab=true; colCusto=-1; colDesc=-1; colFr=-1; colCb=-1; colKm=-1; colQtd=-1;
           for(let ci=0;ci<row.length;ci++){
             const h=rowLow[ci];
@@ -1275,35 +1282,22 @@ function extrairCamposDaPlanilha(rows, rowsMat, rowsResumo, rowsOp){
       const tR=G(row,7); const tN=parseFloat(tR); const tF=(!isNaN(tN)&&tN>0)?fmtBRL(tN):(tR||'—');
       result.push({area:areaNorm,desc,qtd,franquia:fF,combustivel:cF,kmExcedente:kF,custo:tF,valorMensal:tF});
     }
-    return result;
+    // Deduplica por descrição (evita dupla extração quando planilha tem ambos os formatos)
+    const seen=new Set();
+    return result.filter(function(r){
+      const key=(r.desc||'').toLowerCase().trim();
+      if(seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
   }
 
   // Tenta OPERACIONAL primeiro (custo real), depois COMERCIAL como fallback
   if(rowsOp) veicExtraido.push.apply(veicExtraido, lerVeiculosDaAba(rowsOp));
   if(!veicExtraido.length) veicExtraido.push.apply(veicExtraido, lerVeiculosDaAba(rows));
 
-  // Ultimo fallback: estrutura apos FATURAMENTO TOTAL na aba comercial
-  if(!veicExtraido.length){
-    let fbAtivo=false,fbArea='',fbCab=false;
-    for(let ri=0;ri<rows.length;ri++){
-      const row=rows[ri];const l1=G(row,1).toLowerCase();const l2=G(row,2).toLowerCase();
-      if(l1==='faturamento total'){fbAtivo=true;continue;}
-      if(!fbAtivo) continue;
-      if(l1.includes('salario')) break;
-      if(l2.includes('veiculo')){fbArea=G(row,2);fbCab=false;continue;}
-      if(l2.startsWith('qtdade')){fbCab=true;continue;}
-      if(!fbCab) continue;
-      const qtd=parseFloat(G(row,2));if(isNaN(qtd)||qtd<=0) continue;
-      const desc=G(row,3);if(!desc) continue;
-      let areaNorm='Vigilância';
-      if(fbArea.toLowerCase().includes('portaria')) areaNorm='Portaria';
-      const fr2=G(row,4); const frN2=parseFloat(fr2); const frFmt2=(!isNaN(frN2)&&frN2>0)?(frN2.toLocaleString('pt-BR')+' km'):(fr2||'—');
-      const cb2=G(row,5); const cbN2=parseFloat(cb2); const cbFmt2=(!isNaN(cbN2)&&cbN2>0)?fmtBRL(cbN2):(cb2||'—');
-      const km2=G(row,6); const kmN2=parseFloat(km2); const kmFmt2=(!isNaN(kmN2)&&kmN2>0)?('R$ '+kmN2.toLocaleString('pt-BR',{minimumFractionDigits:2})+'/km'):(km2||'—');
-      const ct2=G(row,7); const ctN2=parseFloat(ct2); const ctFmt2=(!isNaN(ctN2)&&ctN2>0)?fmtBRL(ctN2):(ct2||'—');
-      veicExtraido.push({area:areaNorm,desc,qtd,franquia:frFmt2,combustivel:cbFmt2,kmExcedente:kmFmt2,custo:ctFmt2,valorMensal:ctFmt2});
-    }
-  }
+  // Fallback FATURAMENTO TOTAL removido — usava valor de faturamento (markup), não custo real
+  // O modo original (lerVeiculosDaAba + seção CUSTO VEICULO) já cobre o COMERCIAL corretamente
 
   // ─── FASE 4: SALÁRIOS ─────────────────────────────────────────
   const AREAS_SAL=['vigilância','vigilancia','portaria / recepção','portaria','monitoramento','asseio e conservação','bombeiro','jardinagem'];
@@ -1344,8 +1338,15 @@ function extrairCamposDaPlanilha(rows, rowsMat, rowsResumo, rowsOp){
     const peric  = colSalMap.peric>=0   ? G(row,colSalMap.peric)   : '';
     let mesBase=mesRaw;
     try{
-      const d=new Date(mesRaw);
-      if(!isNaN(d.getTime())) mesBase=d.toLocaleDateString('pt-BR',{month:'2-digit',year:'numeric'});
+      const numSer=parseFloat(mesRaw);
+      if(!isNaN(numSer)&&numSer>1000&&numSer<100000){
+        // Número serial do Excel → data real
+        const d=new Date(Math.round((numSer-25569)*86400000));
+        mesBase=d.toLocaleDateString('pt-BR',{month:'2-digit',year:'numeric',timeZone:'UTC'});
+      } else {
+        const d=new Date(mesRaw);
+        if(!isNaN(d.getTime())) mesBase=d.toLocaleDateString('pt-BR',{month:'2-digit',year:'numeric'});
+      }
     }catch(e){}
     let areaNorm='Outros';
     const as=areaSal.toLowerCase();
@@ -1552,8 +1553,10 @@ function aplicarDadosPlanilha(dados, forcar){
   }
   if(dados._equipLinhas && dados._equipLinhas.length)
     equipLinhas = JSON.parse(JSON.stringify(dados._equipLinhas));
-  if(dados._veicLinhas && dados._veicLinhas.length)
-    veicLinhas = JSON.parse(JSON.stringify(dados._veicLinhas));
+  // Sempre atualiza veicLinhas (zera se planilha não tem veículos)
+  veicLinhas = dados._veicLinhas ? JSON.parse(JSON.stringify(dados._veicLinhas)) : [];
+  // Salva tipo do disparo globalmente para uso no PDF
+  if(dados._tipoDisparo) window._tipoDisparo = dados._tipoDisparo;
   if(dados._salarioLinhas && dados._salarioLinhas.length)
     salarioLinhas = JSON.parse(JSON.stringify(dados._salarioLinhas));
   if(dados._insumosLimp)
@@ -1780,7 +1783,7 @@ function getFormData(num,rev){
   return {
     id:nextId(), numDisparo:num, revisao:rev,
     cliente:c('f_cliente'), arquivo:arquivoFinal,
-    data:nowStr(), dataISO:todayISO(), tipo:c('f_tipo'),
+    data:nowStr(), dataISO:todayISO(), tipo:c('f_tipo'), tipoDisparo:window._tipoDisparo||'IMPLANTAÇÃO',
     status:document.getElementById('statusSelect').value,
     centroCusto:c('f_centro_custo'),
     // Snapshot completo dos campos do formulário
@@ -2110,7 +2113,9 @@ function gerarPdfDeRevisao(id, tipo){
 
   // Constrói cabeçalho com dados do snapshot
   const numDisp=item.numDisparo;
-  const titulo=tipo==='comercial'?'DISPARO DE IMPLANTAÇÃO - COMERCIAL':'DISPARO DE IMPLANTAÇÃO - OPERACIONAL';
+  // Título vem do status salvo no snapshot do registro
+  const statusSnap=snap.statusSelect||item.status||'Disparo de Implantação';
+  const titulo=`${statusSnap.toUpperCase()} - ${tipo==='comercial'?'COMERCIAL':'OPERACIONAL'}`;
   const numStr=numDisp?`<span style="font-size:11px;opacity:.75;">Nº ${numDisp} · Rev. ${item.revisao}</span>`:'';
 
   const cabecalho=`
@@ -2229,6 +2234,7 @@ function carregarRegistro(id){
   currentDisparoNum=item.numDisparo||'';
   currentDisparoRev=item.revisao||1;
   currentFile=null; // arquivo não pode ser restaurado — pede para carregar se necessário
+  if(item.tipoDisparo) window._tipoDisparo=item.tipoDisparo;
 
   // Atualiza upload zone
   document.getElementById('uploadTitle').textContent=item.arquivo
@@ -2336,7 +2342,9 @@ function applyConfigToForm(){
 
 // ═══════════ PDF HELPERS ═══════════
 function pdfCabecalhoHtml(c,tipo,numDisp){
-  const titulo=tipo==='comercial'?'DISPARO DE IMPLANTAÇÃO - COMERCIAL':'DISPARO DE IMPLANTAÇÃO - OPERACIONAL';
+  // Título deriva do statusSelect (ex: "Disparo de Retificação" → "DISPARO DE RETIFICAÇÃO - COMERCIAL")
+  const statusVal=(document.getElementById('statusSelect')?.value||'Disparo de Implantação').toUpperCase();
+  const titulo=`${statusVal} - ${tipo==='comercial'?'COMERCIAL':'OPERACIONAL'}`;
   const numStr=numDisp&&numDisp!=='—'?`<span style="font-size:11px;opacity:.75;">Nº ${numDisp}</span>`:'';
   return `
   <div class="dp-logo-bar">
@@ -2467,7 +2475,7 @@ function pdfEquipamentosHtml(modo, snapEquip, snapVeic, snapInsumos){
     });
     // Insumos limpeza: adiciona após a área Limpeza
     if(area==='Limpeza' && (ins.custoMensal||ins.verbaMateriais||ins.verbaImplantacao)){
-      if(ins.custoMensal)     out += `<tr class="dp-highlight"><td>INSUMOS DE LIMPEZA — CUSTO MENSAL</td><td colspan="3">—</td><td>${ins.custoMensal}</td></tr>`;
+      // Linha CUSTO MENSAL removida — o valor já está implícito nas verbas abaixo
       if(ins.verbaMateriais)  out += `<tr class="dp-highlight"><td>VERBA PARA COMPRA DE MATERIAIS</td><td colspan="3">—</td><td>${ins.verbaMateriais}</td></tr>`;
       if(ins.verbaImplantacao)out += `<tr class="dp-highlight"><td>VERBA PARA IMPLANTAÇÃO</td><td colspan="3">—</td><td>${ins.verbaImplantacao}</td></tr>`;
     }
@@ -2696,10 +2704,9 @@ function printPdf(){
 }
 
 function baixarExcel(){
-  // Usa XLSXStyle se disponível, senão XLSX simples
-  var XL = (typeof XLSXStyle !== 'undefined') ? XLSXStyle : (typeof XLSX !== 'undefined' ? XLSX : null);
+  var XL = (typeof XLSX !== 'undefined') ? XLSX : null;
   if(!XL){toast('XLSX não carregado.','error');return;}
-  var useStyle = (typeof XLSXStyle !== 'undefined');
+  var useStyle = false;
 
   function cv(id){var el=document.getElementById(id);return el?el.value:'';}
   function pBRL(s){if(!s)return 0;var n=parseFloat(String(s).replace(/[R$\s.]/g,'').replace(',','.'));return isNaN(n)?0:n;}
